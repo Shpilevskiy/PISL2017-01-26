@@ -29,19 +29,16 @@ public class A_VideoRegistrator {
         int i;                              //i - это индекс события events[i]
         //комментарии от проверочного решения сохранены для подсказки, но вы можете их удалить.
         Arrays.sort(events);                   //подготовка к жадному поглощению массива событий
-        double finish;                     //hint: сортировка Arrays.sort обеспечит скорость алгоритма
-                                              //C*(n log n) + C1*n = O(n log n)
-
-        for (i=0;i<events.length;i++) {       //пока есть незарегистрированные события
-            result.add(events[i]);              //получим одно событие по левому краю
-            finish=events[i]+workDuration;
-
+        double finishTime;                     //hint: сортировка Arrays.sort обеспечит скорость алгоритма
+                                               //C*(n log n) + C1*n = O(n log n)
+        for (i=0;i<events.length;i++) {        //пока есть незарегистрированные события
+            result.add(events[i]);             //получим одно событие по левому краю
+            finishTime=events[i]+workDuration;
             for (int j=i+1; j<events.length; j++) {
-                if (events[j]<=finish) i++;
+                if (events[j]<=finishTime) i++;
                 else break;
             }
         }
-
         return result;                        //вернем итог
     }
 }

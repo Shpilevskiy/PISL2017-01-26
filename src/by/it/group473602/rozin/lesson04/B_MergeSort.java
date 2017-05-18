@@ -21,23 +21,23 @@ Sample Output:
 */
 public class B_MergeSort {
 
-    int[] merge(int[] ar_1, int[] ar_2){
-        int max = ar_1.length + ar_2.length;
+    int[] merge(int[] left, int[] right){
+        int max = left.length + right.length;
         int[] result = new int[max];
-        int m = 0, n = 0;
+        int l = 0, r = 0;
         for (int i = 0; i < max; i++){
-            if (m >= ar_1.length & n < ar_2.length){
-                result[i] = ar_2[n];
-                n++;
-            }else if(n >= ar_2.length & m < ar_1.length){
-                result[i] = ar_1[m];
-                m++;
-            }else if (ar_1[m] <= ar_2[n] & m < ar_1.length){
-                result[i] = ar_1[m];
-                m++;
+            if (l >= left.length & r < right.length){
+                result[i] = right[r];
+                r++;
+            }else if(r >= right.length & l < left.length){
+                result[i] = left[l];
+                l++;
+            }else if (left[l] <= right[r] & l < left.length){
+                result[i] = left[l];
+                l++;
             }else {
-                result[i] = ar_2[n];
-                n++;
+                result[i] = left[r];
+                r++;
             }
         }
         return result;
@@ -66,7 +66,6 @@ public class B_MergeSort {
         for (int i = 0; i < n; i++) {
             a[i] = scanner.nextInt();
             System.out.println(a[i]);
-
         }
 
         // тут ваше решение (реализуйте сортировку слиянием)

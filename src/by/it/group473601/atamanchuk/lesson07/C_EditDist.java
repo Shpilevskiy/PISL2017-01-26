@@ -49,11 +49,102 @@ import java.util.Scanner;
 
 public class C_EditDist {
 
-    String getDistanceEdinting(String one, String two) {
+
+
         //!!!!!!!!!!!!!!!!!!!!!!!!!     НАЧАЛО ЗАДАЧИ     !!!!!!!!!!!!!!!!!!!!!!!!!
 
 
+
+
+    int editDist(int i, int j,int[][] D,String one, String two){
+        if(D[i][j]==Integer.MAX_VALUE){
+            if(i==0){
+                D[i][j]=j;
+            }
+            else if (j==0){
+                D[i][j]=i;
+            }
+            else{
+                int ins = editDist(i,j-1,D,one,two)+1;
+                int del = editDist(i-1,j,D,one,two)+1;
+                int cost = (one.charAt(i-1 ) != two.charAt( j-1) ? 1 : 0);
+                int sub = editDist(i-1,j-1,D,one,two)+cost;
+                int min = Integer.min(ins,del);
+                min = Integer.min(min,sub);
+                D[i][j]=min;
+            }
+        }
+
+        return D[i][j];
+    }
+
+
+    String getDistanceEdinting(String one, String two) {
+        //!!!!!!!!!!!!!!!!!!!!!!!!!     НАЧАЛО ЗАДАЧИ     !!!!!!!!!!!!!!!!!!!!!!!!!
+        int n= one.length();
+        int m = two.length();
+        int[][] D = new int[n+1][m+1];
+        for(int i=0;i<n+1;i++){
+            for(int j=0;j<m+1;j++){
+                D[i][j]= Integer.MAX_VALUE;
+            }
+        }
+        for(int i=0;i<n+1;i++){
+            for(int j=0;j<m+1;j++){
+                editDist(i,j,D,one,two);
+            }
+        }
+
+        for(int i=0;i<n;i++){
+            for(int j=0;j<m;j++){
+                System.out.print("\t"+D[i][j]);
+            }
+            System.out.println();
+        }
+
+
+        String revertResult = "";
+        int i = one.length();
+        int j = two.length();
+        while (i >= 1) {
+            while (j >= 1) {
+
+                int delete = D[i - 1][j];
+                int insert = D[i][j - 1];
+                int substitute = D[i - 1][j - 1];
+                int min = Integer.min(insert,delete);
+                min = Integer.min(min,substitute);
+
+                int coef = (one.charAt(i - 1) != two.charAt(j - 1)) ? 1 : 0;
+
+                if (min == substitute) {
+                    if (coef == 0) {
+                        revertResult += "#,";
+                    } else {
+                        revertResult += "~" + one.charAt(j - 1) + ",";
+                    }
+                    i--;
+                    j--;
+                }
+                if (min == delete) {
+                    revertResult += "-" + two.charAt(i - 1) + ",";
+                    i--;
+                } else {
+                    if (min == insert) {
+                        revertResult += "+" + two.charAt(j - 1) + ",";
+                        j--;
+                    }
+
+                }
+
+            }
+        }
+
+        String[] arrayResult = revertResult.split(",");
         String result = "";
+        for (int k = arrayResult.length - 1; k >= 0; k--) {
+            result += arrayResult[k] + ",";
+        }
         //!!!!!!!!!!!!!!!!!!!!!!!!!     КОНЕЦ ЗАДАЧИ     !!!!!!!!!!!!!!!!!!!!!!!!!
         return result;
     }

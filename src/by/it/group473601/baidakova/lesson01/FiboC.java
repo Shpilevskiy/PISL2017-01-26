@@ -27,7 +27,6 @@ public class FiboC {
         //решение практически невозможно найти интуитивно
         //вам потребуется дополнительный поиск информации
         //см. период Пизано
-
         ArrayList<Long> sequence = new ArrayList<>();
         sequence.add(0L);
         sequence.add(1L);
@@ -37,12 +36,9 @@ public class FiboC {
                 break;
             }
         }
-
         long period = sequence.size() - 2;
         int val = (int)(n % period);
         return sequence.get(val);
     }
-
-
 }
 

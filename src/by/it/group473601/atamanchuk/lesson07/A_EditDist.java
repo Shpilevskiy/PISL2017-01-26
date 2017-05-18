@@ -49,7 +49,7 @@ public class A_EditDist {
             else{
                 int ins = editDist(i,j-1,D,one,two)+1;
                 int del = editDist(i-1,j,D,one,two)+1;
-                int cost = (one.charAt(i ) != two.charAt( j) ? 1 : 0);
+                int cost = (one.charAt(i-1 ) != two.charAt( j-1) ? 1 : 0);
                 int sub = editDist(i-1,j-1,D,one,two)+cost;
                 int min = Integer.min(ins,del);
                 min = Integer.min(min,sub);
@@ -64,14 +64,14 @@ public class A_EditDist {
         //!!!!!!!!!!!!!!!!!!!!!!!!!     НАЧАЛО ЗАДАЧИ     !!!!!!!!!!!!!!!!!!!!!!!!!
         int n= one.length();
         int m = two.length();
-        int[][] D = new int[n][m];
-        for(int i=0;i<n;i++){
-            for(int j=0;j<m;j++){
+        int[][] D = new int[n+1][m+1];
+        for(int i=0;i<n+1;i++){
+            for(int j=0;j<m+1;j++){
                 D[i][j]= Integer.MAX_VALUE;
             }
         }
-        for(int i=0;i<n;i++){
-            for(int j=0;j<m;j++){
+        for(int i=0;i<n+1;i++){
+            for(int j=0;j<m+1;j++){
                 editDist(i,j,D,one,two);
             }
         }
@@ -83,7 +83,7 @@ public class A_EditDist {
             System.out.println();
         }
 
-        int result = D[n-1][m-1];
+        int result = D[n][m];
         //!!!!!!!!!!!!!!!!!!!!!!!!!     КОНЕЦ ЗАДАЧИ     !!!!!!!!!!!!!!!!!!!!!!!!!
         return result;
     }

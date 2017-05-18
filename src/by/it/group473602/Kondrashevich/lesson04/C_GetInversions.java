@@ -49,7 +49,10 @@ public class C_GetInversions {
         int result = 0;
         //!!!!!!!!!!!!!!!!!!!!!!!!     тут ваше решение   !!!!!!!!!!!!!!!!!!!!!!!!
 
-
+        for(int i=0; i<a.length-1; i++){
+            if(a[i]>a[i+1])
+                result+=2;
+        }
 
 
 

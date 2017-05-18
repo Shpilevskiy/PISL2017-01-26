@@ -65,17 +65,14 @@ public class B_Sheduler {
         result = new ArrayList<>();
         //ваше решение.
         Arrays.sort(events);                //сортируем события по времени их окончания
-
         int finishTime=from; //finishTime - время окончания последнего события,
                             //которое берётся в решение
-
         for (int i=0;i<events.length && finishTime<=to;i++) {
             if (events[i].getStart()>=finishTime) {  //выбираем все события, попадающие в интервалы
                 result.add(events[i]);
                 finishTime=events[i].getStop();
             }
         }
-
         return result;                        //вернем итог
     }
 }
